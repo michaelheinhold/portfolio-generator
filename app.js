@@ -1,9 +1,13 @@
-const { profile } = require("console");
+const fs = require('fs');
 
-const profileDataArgs = process.argv.slice(2, process.argv.length);
+const profileDataArgs = process.argv.slice(2);
 
-const printProfileData = (profileDataArr)=> {
-    profileDataArr.forEach((profileDataItem) => console.log(profileDataItem));
-}
+const [name, github] = profileDataArgs;
 
-printProfileData(profileDataArgs);
+const generatePage = require('./src/page-template');
+
+fs.writeFile('index.html', generatePage(name, github), err =>{
+    if(err) throw err;
+
+    console.log('Project complete! checkout index.html to see the results!');
+});
